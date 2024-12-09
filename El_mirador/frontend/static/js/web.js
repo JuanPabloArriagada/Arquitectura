@@ -119,7 +119,7 @@ document.getElementById("form-generar-gastos").addEventListener("submit", functi
                 alert(data.message);
             }
             if (data.registros) {
-                const output = document.getElementById("output");
+                const output = document.getElementById("output_generar");
                 output.textContent = JSON.stringify(data.registros, null, 2);
             }
         })
@@ -153,8 +153,18 @@ document.getElementById("form-marcar-pago").addEventListener("submit", async fun
 
         const result = await response.json();
 
+        // Mostrar alerta según el estado de la respuesta
+        if (response.ok) {
+            alert(`Pago registrado exitosamente para el departamento ${departamento}.`);
+        } else if (result.error === "Pago duplicado") {
+            alert("Error: El pago ya ha sido registrado previamente.");
+        } else {
+            alert("Ocurrió un error al registrar el pago.");
+        }
+
+
         // Mostrar el resultado en la sección de salida
-        const output = document.getElementById("output");
+        const output = document.getElementById("output_pagar");
         output.textContent = JSON.stringify(result, null, 2);
 
         // Mostrar un mensaje en caso de error
@@ -197,10 +207,15 @@ document.getElementById("form-consultar-gastos").addEventListener("submit", asyn
 
         const result = await response.json();
 
-        const output = document.getElementById("output");
-        if (response.ok) {
+        const output = document.getElementById("output_pendientes");
+        if (response.ok && result.length > 0) {
+            alert(`Se encontraron ${result.length} gastos pendientes.`);
             output.textContent = JSON.stringify(result, null, 2);
+        } else if (response.ok && result.length === 0) {
+            alert("No se encontraron gastos pendientes.");
+            output.textContent = "Sin montos pendientes.";
         } else {
+            alert("Ocurrió un error al consultar los gastos.");
             output.textContent = JSON.stringify(result.error, null, 2);
         }
     } catch (error) {
