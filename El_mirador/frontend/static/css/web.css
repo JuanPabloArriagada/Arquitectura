@@ -86,9 +86,53 @@ button:disabled {
 .remove-row {
     background-color: #c2185b; /* Rojo oscuro */
     color: #fff;
+    width: 15px;
 }
 
 .remove-row:hover {
+    background-color: #aa1649;
+}
+
+/* Estilos para filas dinámicas */
+.row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.row select, .row input {
+    flex: 1;
+    border: 1px solid #c3a7e7;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f8f2ff;
+    color: #4a316e;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.row select {
+    width: 100%;
+}
+
+.row input {
+    width: 100%;
+}
+
+.row button {
+    flex-shrink: 0; /* Evita que el botón cambie de tamaño */
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: #c2185b; /* Rojo oscuro */
+    transition: background-color 0.3s ease;
+}
+
+.row button:hover {
     background-color: #aa1649;
 }
 
